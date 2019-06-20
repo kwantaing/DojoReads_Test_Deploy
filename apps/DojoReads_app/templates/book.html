@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'DojoReads_app/css/style.css' %}">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <header>
+                <ul style="display:inline-block;">
+                    <li style="display:inline-block;"><a href="/books">Home</a></li>            
+                    <li style="display:inline-block;"><a href="/books/add">Add Book and Review</a></li>
+                    <li style="display:inline-block;"><a href="/logout">Log Out</a></li>
+                </ul>
+            </header>
+    <div class="bookreviews">
+        <h2>{{book.title}}</h2>
+        <h3>Author: {{book.author.name}}</h3>
+        <h4>Reviews</h4>
+        <ul>
+            {% for review in reviews %}
+            <li>
+                <p>Review: {{review.review}}</p>
+                <p>Rating: {{review.rating}}</p>
+                <p>Reviewed by <a href="/users/{{review.user.id}}">{{review.user.first_name}} </a>on {{review.created_at}}</p>
+            {% endfor %}
+            </li>
+        </ul>
+    </div>
+    <div class="addReview">
+            <form action="/books/{{book.id}}/add_review" method="post" class="form-group">
+                {% csrf_token %}
+                <label for="review">Review:</label>
+                <textarea style="width:300px;"name="review"></textarea>
+                    <p></p>
+                <label for="rating">Rating:</label>
+                    <select name="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>stars
+                <button class="btn btn-success">Add Review</button>
+            </form>
+</body>
+</html>

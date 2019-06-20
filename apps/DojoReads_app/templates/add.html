@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'DojoReads_app/css/style.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+</style>
+<body>
+    <div class="header">
+        <a href="/books">Home</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="addBook">
+        <form action="/books/add_book_review" method="post" class="form-group">
+            {% csrf_token %}
+            <label for="title">Book Title:</label>
+            <input type="text" name = "title"><p></p>
+            <label for="author">Author:</label><br>
+                <label for="list">Choose from the list</label>
+                <select name="authors_dropdown" id="">
+                    {% for author in authors %}
+                    <option value={{author.id}}>{{author.name}}</option>
+                    {% endfor %}
+                </select>
+                <label for="add_newAuthor">Or add a new author</label>
+                <input type="text" name="new_author">
+                <p></p>
+            <label for="review">Review:</label>
+            <textarea style="width:300px;"name="review"></textarea>
+                <p></p>
+            <label for="rating">Rating:</label>
+                <select name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>stars
+            <button class="btn btn-success">Add Book and Review</button>
+        </form>
+    </div>
+</body>
+</html>

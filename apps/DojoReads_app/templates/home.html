@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'DojoReads_app/css/style.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body class="container">
+    <header>
+        <ul style="display:inline-block;">
+            <li style="display:inline-block;"><h1>Welcome, {{user.first_name}}!</h1></li>
+            <li style="display:inline-block;"><a href="/books/add">Add Book and Review</a></li>
+            <li style="display:inline-block;"><a href="/logout">Log Out</a></li>
+        </ul>
+
+
+
+    </header>
+    <div class="recentreviews">
+        <h1>Reviews</h1>
+        <div class="list_of_reviews">
+        {% for review in reviews %}
+        <li>
+            <p>Review: {{review.review}}</p>
+            <p>Rating: {{review.rating}}</p>
+            <p>Reviewed by {{review.user.first_name}} on {{review.created_at}}</p>
+        </li>
+        {% endfor %}
+
+        </div>
+    </div>
+    <div class="other">
+        <h2>Other Books with Reviews</h2>
+        <div class="list_of_books">
+                {% for book in books %}
+                    <p><a href="/books/{{book.id}}">{{book.title}}</a></p>
+                {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
